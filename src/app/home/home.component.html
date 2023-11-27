@@ -1,0 +1,25 @@
+<section class="row">
+  <div class="col">
+    <form>
+      <input name="name" type="text" placeholder="Filter by name" [(ngModel)]="filter">
+<!--      <button class="primary" type="button" (click)="filterResults(filter.value)">Search</button>-->
+    </form>
+  </div>
+  <div class="col">
+    <a class="btn btn-primary" role="button" [routerLink]="['/create-item']">
+      Add an item
+    </a>
+  </div>
+  <nav class="col d-flex justify-content-around" role="navigation">
+    <a href='#'>Customers</a>
+    <a href='#'>Nav #2</a>
+    <a href='#'>Nav #3</a>
+    <a href='#'>Nav #4</a>
+  </nav>
+</section>
+<section class="results">
+  <ng-container *ngIf="items$ | async as items">
+    <app-item *ngFor="let item of items | nameFilter: filter" [item]="item"></app-item>
+  </ng-container>
+
+</section>

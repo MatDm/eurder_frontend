@@ -1,0 +1,23 @@
+<section class="listing">
+  <img class="listing-photo" src="assets/item-image.png" alt="item image"/>
+  <h2 class="listing-heading">{{ item.name }}</h2>
+  <div class="row d-flex">
+    <div class="col listing-price">Price: € {{ item.price }}</div>
+    <div class="col listing-price">
+      <ng-container *ngIf="item.stockAmount < 5">
+        {{StockLevelIndicator.LOW}}
+          <img class="icon" src="assets/warning-icon-red.png" alt="warning">
+      </ng-container>
+      <ng-container *ngIf="item.stockAmount >= 5 && item.stockAmount < 10">
+        {{StockLevelIndicator.MEDIUM}}
+          <img class="icon" src="assets/warning-icon-orange.png" alt="warning">
+      </ng-container>
+      <ng-container *ngIf="item.stockAmount >= 10">
+          {{StockLevelIndicator.HIGH}}
+          <img class="icon" src="assets/warning-icon-green.png" alt="warning">
+      </ng-container>
+    </div>
+  </div>
+  <a [routerLink]="['/details', item.id]">Item details</a>
+</section>
+
