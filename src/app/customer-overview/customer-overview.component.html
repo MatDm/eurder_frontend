@@ -1,0 +1,54 @@
+<div class="row">
+  <div class="col">
+    <h2>Customers</h2>
+  </div>
+  <div class="col">
+<!--    <form>-->
+<!--      <input class="w-100" name="name" type="text" placeholder="Filter customers by last name" [(ngModel)]="filter">-->
+<!--    </form>-->
+    <form class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" name="name" type="search" placeholder="Filter customers by name" aria-label="Search"
+             [(ngModel)]="filter">
+      <!--      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>-->
+    </form>
+  </div>
+</div>
+<hr>
+<ng-container *ngIf="customers$ | async as customers">
+  <div class="table-responsive">
+    <table class="table table-hover">
+      <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">FIRSTNAME</th>
+        <th scope="col">LASTNAME</th>
+        <th scope="col">
+          <a class="btn btn-success w-100 h-100" role="button" [routerLink]="['/create-update-customer']">
+            NEW CUSTOMER
+          </a>
+        </th>
+      </tr>
+      </thead>
+
+      <tbody>
+      <tr *ngFor="let customer of customers | nameFilter: filter: 'lastname'">
+        <th scope="row">{{ customer.id }}</th>
+        <td>{{ customer.firstname }}</td>
+        <td>{{ customer.lastname }}</td>
+        <td class="row">
+          <a class="btn btn-info col" role="button" [routerLink]="['']">
+            VIEW
+          </a>
+
+          <a class="btn btn-primary col" role="button" [routerLink]="['']">
+            EDIT
+          </a>
+        </td>
+      </tr>
+
+      </tbody>
+    </table>
+  </div>
+
+</ng-container>
+

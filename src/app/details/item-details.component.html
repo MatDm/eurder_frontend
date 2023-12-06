@@ -1,0 +1,49 @@
+<ng-container *ngIf="item$ | async as item">
+  <article>
+    <h3>Item {{item.id}}</h3>
+    <section>
+      <form class="form-group">
+        <label for="name">Name</label>
+        <div class="form-control">
+          <input type="text" readonly class="form-control-plaintext" id="name" value="{{item.name}}">
+        </div>
+
+        <br>
+
+        <label for="description">Description</label>
+        <div class="form-control">
+          <input type="text" readonly class="form-control-plaintext" id="description" value="{{item.description}}">
+        </div>
+
+        <br>
+
+        <label for="price">Price: €</label>
+        <div class="form-control">
+          <input type="number" readonly class="form-control-plaintext" id="price" value="{{item.price}}">
+        </div>
+
+        <br>
+
+        <label for="stockAmount">Amount of Stock: €</label>
+        <div class="form-control">
+          <input type="number" readonly class="form-control-plaintext" id="stockAmount" value="{{item.stockAmount}}">
+        </div>
+
+        <br>
+
+        <div class="row">
+          <div class="col-md-9 ">
+            <a class="form-control btn btn-primary" role="button" [routerLink]="['/create-update-item', item.id]">EDIT</a>
+          </div>
+          <div class="col-md-3">
+            <a class="form-control btn btn-outline-primary" role="button" [routerLink]="['']">BACK</a>
+          </div>
+        </div>
+      </form>
+    </section>
+  </article>
+</ng-container>
+
+
+
+

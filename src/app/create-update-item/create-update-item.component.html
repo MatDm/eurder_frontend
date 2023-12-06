@@ -1,0 +1,81 @@
+<section>
+  <h3 *ngIf="!item">Create Item</h3>
+  <h3 *ngIf="item">Item {{item.id}}</h3>
+  <form class="form-group" [formGroup]="createItemForm" #formDir="ngForm">
+
+    <label for="name">Name</label>
+    <input id="name" type="text" class="form-control" formControlName="name" placeholder="name" required
+    value="{{item?.name}}">
+    <div *ngIf="name?.invalid && (name?.dirty || name?.touched)"
+         class="alert alert-danger">
+      <div *ngIf="name?.errors?.['required']">
+        Name is required.
+      </div>
+    </div>
+
+    <br>
+
+    <label for="description">Description</label>
+    <textarea id="description" type="text" class="form-control" formControlName="description"
+              placeholder="description" [value]="item?.description" #descriptionText>
+    </textarea>
+    <span class="d-block text-end" [class.text-danger]="this.descriptionText.value.length >= 255">
+      {{ this.descriptionText.value | characterCounter }} /255
+    </span>
+
+    <div *ngIf="description?.invalid && (description?.dirty || description?.touched)"
+         class="alert alert-danger">
+      <div *ngIf="description?.errors?.['required']">
+        Description is required.
+      </div>
+      <div *ngIf="description?.errors?.['maxlength']">
+        Description must not be greater than 255 characters.
+      </div>
+    </div>
+
+    <br>
+
+    <label for="price">Price</label>
+    <input id="price" type="number" class="form-control" formControlName="price" placeholder="0" required
+    value="{{item?.price}}">
+    <div *ngIf="price?.invalid && (price?.dirty || price?.touched)"
+         class="alert alert-danger">
+      <div *ngIf="price?.errors?.['required']">
+        Price is required.
+      </div>
+      <div *ngIf="price?.errors?.['min']">
+        Price must be greater than 0.
+      </div>
+    </div>
+
+    <br>
+
+    <label for="stockAmount">Amount of Stock</label>
+    <input id="stockAmount" type="number" class="form-control" formControlName="stockAmount" placeholder="0"
+           value="{{item?.stockAmount}}">
+    <div *ngIf="stockAmount?.invalid && (stockAmount?.dirty || stockAmount?.touched)"
+         class="alert alert-danger">
+      <div *ngIf="stockAmount?.errors?.['required']">
+        Stock amount is required.
+      </div>
+      <div *ngIf="stockAmount?.errors?.['min']">
+        Stock amount must be greater than 0.
+      </div>
+    </div>
+
+    <br>
+
+    <div class="row">
+      <div class="col-md-9 ">
+        <button *ngIf="!item" type="submit"
+                class="form-control btn btn-success" (click)="onCreate()" [disabled]="createItemForm.invalid">CREATE</button>
+        <button *ngIf="item" type="submit"
+                class="form-control btn btn-success" (click)="onUpdate()" [disabled]="createItemForm.invalid">UPDATE</button>
+      </div>
+      <div class="col-md-3">
+        <button  type="button" class=" form-control btn btn-outline-secondary"
+                (click)="formDir.resetForm({})">CANCEL</button>
+      </div>
+    </div>
+  </form>
+</section>

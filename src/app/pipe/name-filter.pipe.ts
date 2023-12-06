@@ -1,17 +1,18 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import {Item} from "../model/item";
 
 @Pipe({
   name: 'nameFilter',
   standalone: true
 })
 export class NameFilterPipe implements PipeTransform {
-  transform(items: Item[], searchText: string): Item[] {
-    if (!items)
+  transform(any: any[], searchText: string, property: string): any[] {
+    if (!any)
       return [];
     if(searchText === '')
-      return items;
+      return any;
     searchText.toLowerCase();
-    return items.filter(item => item.name.toLowerCase().startsWith(searchText));
+    if (property === 'lastname')
+      return any.filter((any: { lastname: string; }) => any.lastname.toLowerCase().startsWith(searchText));
+    return any.filter((any: { name: string; }) => any.name.toLowerCase().startsWith(searchText));
   }
 }
